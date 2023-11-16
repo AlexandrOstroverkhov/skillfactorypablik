@@ -1,0 +1,37 @@
+numbers = list(map(int, input('Введите последовательность чисел через пробел: ').split()))
+print(numbers)
+
+border_low = 0
+border_hight = len(numbers) - 1
+
+for i in range(len(numbers)):
+    for j in range(len(numbers) - i -1):
+        if numbers[j] > numbers[j + 1]:
+            numbers[j], numbers[j + 1] = numbers [j + 1], numbers[j]
+print(numbers)
+
+def number(list, low, high):
+    try:
+        input_number = int(input(f'Введите число, которое  > {list[low]} и <= {list[high]} : '))
+        if not (list[low] < input_number <= list[high]):
+            raise ValueError
+    except ValueError:
+        print(f'Введенное число не попадает в границы массива!')
+        input_number = digit_check(list, low, high)
+    return input_number
+
+element = number(numbers, border_low, border_hight)
+
+def bi_search(element, numbers) -> int:
+    left, right = 0, len(numbers)
+    while left < right:
+        middle = (left + right)//2
+        if numbers[middle]<element:
+            left = middle + 1
+        else:
+            right = middle
+    return left
+
+item_number = bi_search(element, numbers)
+
+print(f'Номер позиции элемента в списке равен:', item_number)
